@@ -62,14 +62,8 @@ schemas:
         }
 /authors:
     displayName: AuthorsResource
-    type: {
-        collection: {
-            schema: authors
-        }
-    }
     get:
         description: Get a list of all the authors in the system
-        is: [searchable: {description: "with valid searchable fields: name", example: "[\"name\", \"Wheel of Time\"]"}]
     post:
         description: Add author
         responses:
@@ -78,7 +72,6 @@ schemas:
                     application/json:
                         schema: author
     /id/{authorId}:
-        type: { member:  { schema: author } }
         uriParameters:
             authorId:
                 displayName: Author ID
@@ -91,13 +84,11 @@ schemas:
             description: Delete an author
 /books:
     displayName: BooksResource
-    type: { collection:  { schema: books } }
     get:
         description: Get a list of all of the books in the system
     post:
         description: Create a book
     /id/{bookId}:
-        type: { member:  { schema: book } }
         uriParameters:
             bookId:
                 displayName: Book ID
@@ -144,13 +135,6 @@ resourceTypes:
             responses:
                 200:
 traits:
-    - searchable:
-        queryParameters:
-            query:
-                description: |
-                    JSON array [{"field1","value1","operator1"},{"field2","value2","operator2"},...,{"fieldN","valueN","operatorN"}] <<description>>
-                example: |
-                    <<example>>
     - paged:
             displayName: paged
             queryParameters:
